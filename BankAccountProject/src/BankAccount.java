@@ -1,5 +1,5 @@
 
-public class abstract BankAccount 
+public abstract class BankAccount 
 {
 	public static int nextAccNum;
 	private String name;
@@ -22,12 +22,12 @@ public class abstract BankAccount
 		balance=b;
 	}
 	
-	public double deposit(double amt)
+	public void deposit(double amt)
 	{
 		balance += amt;
 	}
 	
-	public double withdraw (double amt)
+	public void withdraw(double amt)
 	{
 		balance -= amt;
 	}
@@ -42,7 +42,7 @@ public class abstract BankAccount
 		return balance;
 	}
 	
-	public abstract endOfMonthUpdate();
+	public abstract void endOfMonthUpdate();
 	
 	public void transfer(BankAccount other, double amt)
 	{

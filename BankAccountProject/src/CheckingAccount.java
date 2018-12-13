@@ -54,14 +54,27 @@ public class CheckingAccount extends BankAccount
 	@Override
 	public void transfer(BankAccount other, double amt)
 	{
+		if(this.getName().equals(other.getName()))
+		{
+			super.transfer(other, amt);
+		}
 		
+		numTransactions++;
+		if(this.getBalance()>TRANSACTION_FEE)
+		{
+			super.withdraw(TRANSACTION_FEE);
+		}
+		else
+		{
+			throw(new IllegalArgumentException());
+		}
 	}
 	
 	
 	@Override
 	public void endOfMonthUpdate() 
 	{
-		// TODO Auto-generated method stub
+		numTransactions=0;
 		
 	}
 	

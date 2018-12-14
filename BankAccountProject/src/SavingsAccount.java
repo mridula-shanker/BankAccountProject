@@ -26,17 +26,47 @@ public class SavingsAccount extends BankAccount
 	@Override
 	public void withdraw(double amt)
 	{
-		if (amt<=0 || )
+		if (amt<=0 || this.getBalance()<amt || this.getBalance()<0 )
 		{
-			super.withdraw(amt);
+			throw(new IllegalArgumentException());
+		}
+		super.withdraw(amt);
+		if(this.getBalance()< MIN_BAL)
+		{
+			super.withdraw(MIN_BAL_FEE);
 		}
 	}
 	
+	@Override
+	public void deposit(double amt)
+	{
+		if(amt<0)
+		{
+			throw(new IllegalArgumentException());
+		}
+	}
+
+	@Override
+	public void transfer(BankAccount other, double amt)
+	{
+		if(this.getName().equals(other.getName()))
+		{
+			super.transfer(other, amt);
+		}
+		else
+		{
+			throw new IllegalArgumentException();
+		}
+	}
 	
+	public void addInterest()
+	{
+		super.deposit(getBalance()* intRate);
+	}
 	@Override
 	public void endOfMonthUpdate() 
 	{
-		
+		addInterest();
 	}
 }
 

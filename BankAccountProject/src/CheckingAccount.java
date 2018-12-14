@@ -28,7 +28,7 @@ public class CheckingAccount extends BankAccount
 	{
 		if (amt < 0)
 		{
-			throw(new IllegalArgumentException());
+			throw new IllegalArgumentException();
 		}
 		numTransactions++;
 		if (numTransactions>FREE_TRANS)
@@ -42,11 +42,12 @@ public class CheckingAccount extends BankAccount
 	@Override
 	public void withdraw (double amt)
 	{
-		if (this.getBalance()<0)
+		if (this.getBalance()<0 || amt<0)
 		{
-			throw(new IllegalArgumentException());
+			throw new IllegalArgumentException();
 		}
 		
+	
 		super.withdraw(amt);
 		
 	}
@@ -57,6 +58,10 @@ public class CheckingAccount extends BankAccount
 		if(this.getName().equals(other.getName()))
 		{
 			super.transfer(other, amt);
+		}
+		else
+		{
+			throw new IllegalArgumentException();
 		}
 		
 		numTransactions++;

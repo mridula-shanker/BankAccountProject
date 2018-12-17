@@ -26,9 +26,9 @@ public class SavingsAccount extends BankAccount
 	@Override
 	public void withdraw(double amt)
 	{
-		if (amt<=0 || this.getBalance()<amt || this.getBalance()<0 )
+		if (amt <=0 || this.getBalance() < amt || this.getBalance() < 0 )
 		{
-			throw(new IllegalArgumentException());
+			throw new IllegalArgumentException();
 		}
 		super.withdraw(amt);
 		if(this.getBalance()< MIN_BAL)
@@ -42,8 +42,10 @@ public class SavingsAccount extends BankAccount
 	{
 		if(amt<0)
 		{
-			throw(new IllegalArgumentException());
+			throw new IllegalArgumentException();
 		}
+		
+		super.deposit(amt);
 	}
 
 	@Override

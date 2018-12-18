@@ -50,6 +50,11 @@ public abstract class BankAccount
 		other.deposit(amt);
 	}
 	
+	public int getAccountNumber()
+	{
+		return acctNum;
+	}
+	
 	public String toString()
 	{
 		return acctNum + "\t" + name + "\t$" + balance ;

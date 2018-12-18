@@ -46,15 +46,15 @@ public class CheckingAccount extends BankAccount
 		{
 			throw new IllegalArgumentException();
 		}
-		
 		super.withdraw(amt);
+		numTransactions++;
+		if(numTransactions > FREE_TRANS)
+			super.withdraw(TRANSACTION_FEE);
+		
 		if(this.getBalance()<0)
 		{
 			super.withdraw(OVER_DRAFT_FEE);
 		}
-		numTransactions++;
-		if(numTransactions > FREE_TRANS)
-			super.withdraw(TRANSACTION_FEE);
 		
 	}
 	

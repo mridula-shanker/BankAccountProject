@@ -19,22 +19,44 @@ public class MainClass
 		boolean ans = true;
 		while (ans)
 		{
-			System.out.print("Would you like to add an account, make a transaction, or terminate the program?");
+			System.out.print("Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
 			String input = in.nextLine();
-			if(input.equals("Bank Account"))
+			if(input.equals("account"))
+			{
+				System.out.println("Would you like to make a Checking Account(checking) or Savings Account(saving)?");
+				String type = in.nextLine();
+				if (type.equals("checking")) 
+				{
+					System.out.println("Please enter your name");
+					String name = in.nextLine();
+					System.out.println("Please enter your name");
+					String name = in.nextLine();
+					CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
+				}
+				
+			}
+			else if(input.equals("transaction"))
 			{
 				
 			}
-			else if(input.equals("Transaction"))
-			{
-				
-			}
-			else if(input.equals("Terminate"))
+			else if(input.equals("terminate"))
 			{
 				
 			}
 			else
+			{
+				System.out.print("Please enter a valid response.");
+			}
 				
+			
+			/**
+			 * accNum
+			 * local variable = null
+			 * for ( check for acct num) 
+			 *
+			 * local variable = acct num
+			 * if localVariable == null
+			 */
 		}
 
 	}

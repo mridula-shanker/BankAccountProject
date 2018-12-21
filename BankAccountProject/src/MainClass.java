@@ -52,10 +52,13 @@ public class MainClass
 			/**
 			 * accNum
 			 * local variable = null
-			 * for ( check for acct num) 
+			 * for ( accNum == localVariable) 
+			 *		
+			 *		check variable
 			 *
 			 * local variable = acct num
 			 * if localVariable == null
+			 * 		promt user to enter correct number
 			 */
 		}
 

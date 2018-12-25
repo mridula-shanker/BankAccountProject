@@ -1,5 +1,5 @@
 
-public class CheckingAccount extends BankAccount
+public  class CheckingAccount extends BankAccount
 {
 	private final double OVER_DRAFT_FEE; 
 	private final double TRANSACTION_FEE; 
@@ -31,11 +31,12 @@ public class CheckingAccount extends BankAccount
 			throw new IllegalArgumentException();
 		}
 		numTransactions++;
-		if (numTransactions>FREE_TRANS)
+		double newAmt = amt;
+		if (numTransactions > FREE_TRANS)
 		{
-			super.withdraw(TRANSACTION_FEE);
+			newAmt = amt - TRANSACTION_FEE;
 		}
-		super.deposit(amt);
+		super.deposit(newAmt);
 		
 	}
 	
@@ -46,31 +47,43 @@ public class CheckingAccount extends BankAccount
 		{
 			throw new IllegalArgumentException();
 		}
-		super.withdraw(amt);
+		
+		double newAmt = amt;
+		
 		numTransactions++;
 		if(numTransactions > FREE_TRANS)
-			super.withdraw(TRANSACTION_FEE);
-		
-		if(this.getBalance()<0)
-		{
-			super.withdraw(OVER_DRAFT_FEE);
-		}
-		
+			newAmt = newAmt + TRANSACTION_FEE;
+
+		if(this.getBalance() - newAmt < 0)
+			newAmt = newAmt + OVER_DRAFT_FEE;
+
+		super.withdraw(newAmt);
+	
 	}
 	
 	@Override
 	public void transfer(BankAccount other, double amt)
 	{
-		if(this.getBalance()<amt)
+		if(this.getBalance()<amt ||  amt<0)
 		{
 			throw new IllegalArgumentException();
 		}
 			
 		if(this.getName().equals(other.getName()))
 		{
-			if(this.getBalance()<0)
+			numTransactions++;
+			double newAmt = amt;
+			if(numTransactions > FREE_TRANS)
+				newAmt = newAmt + TRANSACTION_FEE;
+			if(this.getBalance()>=newAmt)
+			{
+				super.transfer(other, amt);
+			}
+			else
+			{
+				numTransactions--;
 				throw new IllegalArgumentException();
-			super.transfer(other, amt);
+			}
 		}
 		else
 		{
@@ -81,7 +94,7 @@ public class CheckingAccount extends BankAccount
 	
 	
 	@Override
-	public void endOfMonthUpdate() 
+	public  void endOfMonthUpdate() 
 	{
 		numTransactions=0;
 		

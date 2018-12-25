@@ -24,11 +24,19 @@ public abstract class BankAccount
 	
 	public void deposit(double amt)
 	{
+		if (amt < 0)
+		{
+			throw new IllegalArgumentException();
+		}
 		balance += amt;
 	}
 	
 	public void withdraw(double amt)
 	{
+		if (amt < 0)
+		{
+			throw new IllegalArgumentException();
+		}
 		balance -= amt;
 	}
 	
@@ -57,6 +65,7 @@ public abstract class BankAccount
 	
 	public String toString()
 	{
-		return acctNum + "\t" + name + "\t$" + balance ;
+		System.out.println(acctNum + "\t" + name + "\t$" + balance) ;
+		return acctNum + "\t" + name + "\t$" + balance;
 	}
 }

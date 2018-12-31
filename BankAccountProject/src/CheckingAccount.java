@@ -1,5 +1,5 @@
 
-public  class CheckingAccount extends BankAccount
+public class CheckingAccount extends BankAccount
 {
 	private final double OVER_DRAFT_FEE; 
 	private final double TRANSACTION_FEE; 
@@ -22,6 +22,7 @@ public  class CheckingAccount extends BankAccount
 		TRANSACTION_FEE=tf;
 		
 	}
+
 
 	@Override
 	public void deposit(double amt)

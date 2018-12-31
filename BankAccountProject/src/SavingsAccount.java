@@ -30,6 +30,7 @@ public class SavingsAccount extends BankAccount
 		{
 			throw new IllegalArgumentException();
 		}
+		
 		super.withdraw(amt);
 		if(this.getBalance()< MIN_BAL)
 		{
@@ -56,10 +57,10 @@ public class SavingsAccount extends BankAccount
 		{
 			throw new IllegalArgumentException();
 		}
-			
+
 		if(this.getName().equals(other.getName()))
 		{
-			double newAmt = amt; //+ CA_TRANSACTION_FEE;
+			double newAmt = amt; //+ TRANSACTION_FEE;
 			if(this.getBalance()<0 || this.getBalance() < newAmt)
 				throw new IllegalArgumentException();
 			//super.withdraw(CA_TRANSACTION_FEE);

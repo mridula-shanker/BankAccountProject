@@ -18,7 +18,7 @@ public class MainClass
 	{
 		Scanner in = new Scanner(System.in);
 		double bal=0;
-		String accType="A";
+		String accType="";
 		boolean saveCheckOption = true;
 		boolean ans = true;
 		do
@@ -81,35 +81,59 @@ public class MainClass
 			if (accType.equals("C") && bal==0)
 			{
 				accounts.add(new CheckingAccount(name,OVER_DRAFT_FEE, TRANSACTION_FEE,FREE_TRANSACTIONS));
-				System.out.println("Successfully added the Checking account with $ " + 0.00 + " balance" + name);
+				System.out.println("Successfully added a Checking account with $ " + bal + " balance " + name);
 			}
 			else if (accType.equals("C") && bal > 0)
 			{
 				accounts.add(new CheckingAccount(name, bal, OVER_DRAFT_FEE, TRANSACTION_FEE,FREE_TRANSACTIONS));
-				System.out.println("Successfully added the Checking account with $ " + bal +  " balance" + name);		
+				System.out.println("Successfully added a Checking account with $ "+ bal +  " balance " + name);		
 			}
 			else if (accType.equals("S") && bal == 0)
 			{
 				accounts.add(new SavingsAccount(name, RATE, MIN_BAL,MIN_BAL_FEE));
-				System.out.println("Successfully added the Savings account with $ " + bal +  " balance" + name);
+				System.out.println("Successfully added a Savings account with $ " + bal +  " balance " + name);
 			}
 			else if (accType.equals("S") && bal > 0)
 			{
 				accounts.add(new SavingsAccount(name, bal, RATE, MIN_BAL,MIN_BAL_FEE));
-				System.out.println("Successfully added the Savings account with $ " + bal +  " balance" + name);
+				System.out.println("Successfully added a Savings account with $ " + bal +  " balance " + name);
 			}
 		}
 	}	
 	
-	
+	public static double getValidAmt()
+	{
+		Scanner in = new Scanner(System.in);
+		double amt = -1;
+		while (amt <= -1)
+		{
+			System.out.println("Please enter the valid amount");
+			if (in.hasNextDouble())
+			{
+				amt = in.nextDouble();
+				return amt;
+			}
+			else
+			{
+				in.next();
+				amt = -1;
+			}	
+		}
+		return amt;
+	}
 	public static int getValidAccount()
 	{
 		Scanner in = new Scanner(System.in);
+		Scanner inn = new Scanner(System.in);
+		Scanner confIn = new Scanner(System.in);
+		Scanner nameIn = new Scanner(System.in);
+		Scanner accIn = new Scanner(System.in);		
+		
 		boolean action = true;
-		int accNo=0;
+		int accNo=-1;
 		do
 		{
-			System.out.println("Want to Enter Account Number (num); or Name (name); or go back (back)");
+			System.out.println("Would you like to enter account number (num); or name (name); or go back (back)");
 			String input = in.nextLine();
 			if (input.equals("num"))
 			{	
@@ -117,9 +141,9 @@ public class MainClass
 				while (tempAccNo <= -1)
 				{
 					System.out.println("Please enter Account number");
-					if (in.hasNextInt())
+					if (inn.hasNextInt())
 					{
-						tempAccNo = in.nextInt();
+						tempAccNo = inn.nextInt();
 						int arraySize = accounts.size() - 1;
 						if (tempAccNo > arraySize)
 						{
@@ -134,7 +158,7 @@ public class MainClass
 							do
 							{
 								System.out.println(accName + " - Please Verify Name (Y/N)");
-								String confInput = in.nextLine();
+								String confInput = confIn.nextLine();
 								if(confInput.equals("Y"))
 								{
 									conf = true;
@@ -156,7 +180,8 @@ public class MainClass
 					}
 					else
 					{
-						in.next();
+						System.out.println("Invalid number");
+						inn.next();
 						tempAccNo = -1;
 					}	
 				}
@@ -168,7 +193,7 @@ public class MainClass
 		        do 
 		        {
 		            System.out.print("Please enter your name:");
-		            name = in.nextLine();
+		            name = nameIn.nextLine();
 		            if(!name.matches(regex))
 		            	System.out.println("Please Enter A Valid String (Only alphabets)");
 		        } while(!name.matches(regex));
@@ -211,11 +236,11 @@ public class MainClass
 		        	do
 		        	{
 			        	System.out.println("Please reconfirm your account number from the list above");
-		        		if(in.hasNextInt())
+		        		if(accIn.hasNextInt())
 		        		{
 		        			boolean matchfoundflag = false;
 		        			isNumber=true;
-		        			int checkNum = in.nextInt();
+		        			int checkNum = accIn.nextInt();
 		        			for(int j=0; j<accNumList.size(); j++)
 		        			{
 		        				if(checkNum==accNumList.get(j))
@@ -234,7 +259,7 @@ public class MainClass
 		        		else
 		        		{
 		        			System.out.println("Enter a valid number");
-		        			in.next();
+		        			accIn.next();
 		        			isNumber=false;
 		        		}
 		        	}while(!isNumber);
@@ -259,43 +284,85 @@ public class MainClass
 	public static void transactions()
 	{
 		Scanner in = new Scanner(System.in);
+		int accNo;
 		boolean action = true;
 		do
 		{
 			System.out.println("Please enter Transcaction Type:  Withdraw (W); Deposit (D); Transfer (T) or Back to menu (B)?");
 			String input = in.nextLine();
-			if (input.equals("D"))
+			switch(input){
+			case ("D"):
 			{
-				System.out.println("Deposit");
-				int accNo = getValidAccount();
+				System.out.println("Deposit in progress....");
+				accNo = getValidAccount();
+				if (accNo != -1)
+				{
+					double amt = getValidAmt();
+					String accName = accounts.get(accNo).getName();
+					accounts.get(accNo).deposit(amt);
+					System.out.println("Your money has been successfully deposited");
+					System.out.println(accNo + " -- " + accounts.get(accNo).getBalance() + " --" );
+					System.out.println(accounts.get(accNo).toString());	
+				}
+				else
+				{
+					break;
+				}
 			}
-			else if (input.equals("W"))
-			{
-				System.out.println("Withdraw");
+			break;
+			case("W"):
+				System.out.println("Withdraw in progress.....");
+				accNo = getValidAccount();
+				if (accNo != -1)
+				{
+					double amt = getValidAmt();
+					accounts.get(accNo).withdraw(amt);	
+					System.out.println(accNo + " -- " + accounts.get(accNo).getBalance() + " --" );
+					System.out.println(accounts.get(accNo).toString());
+				}
+				else
+				{
+					break;
+				}
+				break;
+						
+			case ("T"):
+				System.out.println("Transfer in progress.....");
 				
-			}			
-			else if (input.equals("T"))
-			{
-				System.out.println("Transfer");
-			}
-			else if (input.equals("back"))
-			{
+				accNo = getValidAccount();
+				System.out.println("Enter the Destination account number.....");
+				int toAccNo = getValidAccount();
+				if (accNo != -1 && toAccNo != -1)
+				{
+					double amt = getValidAmt();
+					System.out.println(accNo + " -- " + accounts.get(accNo).getBalance() + " --" + toAccNo);
+					accounts.get(accNo).transfer(accounts.get(toAccNo), amt);
+				}
+				else
+				{
+					break;
+				}
+				break;
+				
+			case("back"):
 				System.out.println("Exiting the Transaction option");
 				action = true;
-			}
-			else
-			{
-				System.out.println("Enter Valid Transcaction");
+				break;			
+				
+			default:
+				System.out.println("Enter Valid Transcaction....");
 				action = false;
+				break;
 			}
-		}while(!action);
+		}
+		while(!action);
 	
 	}
 	
 	public static void main(String[] args) 
 	{
 		Scanner in = new Scanner(System.in);
-		boolean ans = true;
+		boolean ans = false;
 		do
 		{
 			System.out.print("Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
@@ -313,14 +380,14 @@ public class MainClass
 			else if(input.equals("terminate"))
 			{
 				System.out.println("terminate");
-				ans=false;
+				ans=true;
 			}
 			else
 			{
 				System.out.print("Please enter a valid response.");
 			}
 		
-		}while(ans);
+		}while(!ans);
 		
 			//words.matches("[^a-zA-Z0-9]+$"
 		

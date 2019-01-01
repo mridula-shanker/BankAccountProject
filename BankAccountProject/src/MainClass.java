@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 public class MainClass 
 {
 	
@@ -24,13 +22,20 @@ public class MainClass
 	{
 		Scanner in = new Scanner(System.in);
 		double amt = -1;
-		while (amt <= -1)  // Allows only the positive integer
+		while (amt <= -1)  
 		{
 			System.out.println(dispStr);
-			if (in.hasNextDouble())
+			if (in.hasNextDouble())// Allows only the double value
 			{
 				amt = in.nextDouble();
-				return amt;
+				if (amt >= 0) // Allows only the positive integer
+				{
+					return amt;
+				}
+				else
+				{
+					amt = -1;
+				}
 			}
 			else
 			{
@@ -85,7 +90,7 @@ public class MainClass
 				int tempAccNo = -1;
 				while (tempAccNo <= -1)
 				{
-					System.out.println("Please enter a Valid Account number");
+					System.out.println("Please enter a Valid Account number: ");
 					if (inn.hasNextInt())
 					{
 						tempAccNo = inn.nextInt();
@@ -106,7 +111,7 @@ public class MainClass
 							{
 								System.out.println (accName + "\t" +  accType + "\t" + tempbal + " - Please Verify Name (Y/N)");
 								String confInput = confIn.nextLine();
-								if(confInput.equalsIgnoreCase("Y"))  // Reconfirming the account name
+								if(confInput.equalsIgnoreCase("Y"))  // Re-confirming the account name
 								{
 									conf = true;
 									return tempAccNo;
@@ -139,7 +144,7 @@ public class MainClass
 				String name;
 		        do 
 		        {
-		            System.out.println("Please enter the name:");
+		            System.out.println("Please enter the name: ");
 		            name = nameIn.nextLine();
 		            if(!name.matches(regex))
 		            	System.out.println("Please Enter A Valid String (Only alphabets)");
@@ -147,7 +152,7 @@ public class MainClass
 		        
 		        ArrayList<Integer> accNumList = new ArrayList <Integer>();
 		        int match = 0;
-	        	System.out.println("Account number and balance Matches the given name: ");
+	        	System.out.println("Account number and balance which matches the given name: ");
 		        for(int i=0; i<accounts.size(); i++)
 		        {
 		        	String tempName = accounts.get(i).getName();

@@ -139,7 +139,7 @@ public class MainClass
 				String name;
 		        do 
 		        {
-		            System.out.print("Please enter the name:");
+		            System.out.println("Please enter the name:");
 		            name = nameIn.nextLine();
 		            if(!name.matches(regex))
 		            	System.out.println("Please Enter A Valid String (Only alphabets)");
@@ -272,7 +272,8 @@ public class MainClass
 	        
 	        bal = getValidAmt("Please enter intial balance (zero to any postive number)");
 			
-			
+			try
+			{
 			if (accType.equals("C") && bal==0) // Checking account with zero balance
 			{
 				accounts.add(new CheckingAccount(name,OVER_DRAFT_FEE, TRANSACTION_FEE,FREE_TRANSACTIONS));
@@ -293,6 +294,12 @@ public class MainClass
 				accounts.add(new SavingsAccount(name, bal, RATE, MIN_BAL,MIN_BAL_FEE));
 				System.out.println("Successfully added a Savings account for " + name + " with $" + bal + " balance");
 			}
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.out.println("Transacation not Authorised. Account Creation has been cancelled");			
+			}
+
 		}
 	}	
 	
@@ -311,7 +318,8 @@ public class MainClass
 			switch(input)
 			{
 			case ("D"):  // To deposit to the account
-				
+				try
+				{
 				System.out.println("Deposit in progress....");
 				accNo = getValidAccount();
 				if (accNo != -1)
@@ -326,9 +334,16 @@ public class MainClass
 				{
 					break;
 				}
+				}
+				catch(IllegalArgumentException e)
+				{
+					System.out.println("Transacation not Authorised. Deposit has been cancelled");			
+				}
 			break;
 			
 			case("W"):
+				try
+				{
 				System.out.println("Withdraw in progress.....");
 				accNo = getValidAccount();
 				if (accNo != -1)
@@ -342,9 +357,16 @@ public class MainClass
 				{
 					break;
 				}
+				}
+				catch(IllegalArgumentException e)
+				{
+					System.out.println("Transacation not Authorised. Withdraw has been cancelled");			
+				}
 				break;
-						
+
 			case ("T"):
+				try
+				{
 				System.out.println("Transfer in progress.....");
 				
 				accNo = getValidAccount();
@@ -362,9 +384,17 @@ public class MainClass
 				{
 					break;
 				}
-				break;
+			}
+			catch(IllegalArgumentException e)
+			{
+				System.out.println("Transacation not Authorised. Transaction has been cancelled");			
+			}
+
+			break;
 
 			case ("I"):
+				try
+				{	
 				accNo = getValidAccount();
 				if (accNo != -1)
 				{
@@ -373,8 +403,14 @@ public class MainClass
 				else
 				{
 					break;
-				}		
+				}	
+				}
+				catch(IllegalArgumentException e)
+				{
+					System.out.println("Transacation not Authorised. Please Check with Administrator");			
+				}
 				break;
+				
 			case("back"):
 				System.out.println("Exiting the Transaction option");
 				action = true;
@@ -400,7 +436,7 @@ public class MainClass
 		boolean ans = false;
 		do
 		{
-			System.out.print("Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
+			System.out.println("Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
 			String input = in.nextLine();
 			if(input.equalsIgnoreCase("account"))
 			{

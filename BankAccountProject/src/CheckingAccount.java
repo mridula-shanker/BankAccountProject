@@ -6,6 +6,10 @@ public class CheckingAccount extends BankAccount
 	private final double FREE_TRANS; 
 	private int numTransactions;
 	
+	/**
+	 * Constructor creates an instance with initial balance 
+	 * @param account name, initial balance, overdraft and transaction fee, and number of free transactions
+	 */
 	CheckingAccount(String n, double b, double odf, double tf, int freeTrans)
 	{
 		super(n, b);
@@ -14,6 +18,10 @@ public class CheckingAccount extends BankAccount
 		TRANSACTION_FEE= tf;
 	}
 
+	/**
+	 * Constructor creates an instance with initial balance as zero
+	 * @param account name, overdraft and transaction fee, and number of free transactions
+	 */
 	CheckingAccount(String n, double odf, double tf, int freeTrans)
 	{
 		super(n);
@@ -23,7 +31,10 @@ public class CheckingAccount extends BankAccount
 		
 	}
 
-
+	/**
+	 * Overriding deposit method to track number of transaction and transaction fee. 
+	 * @param amount
+	 */
 	@Override
 	public void deposit(double amt)
 	{
@@ -41,10 +52,14 @@ public class CheckingAccount extends BankAccount
 		
 	}
 	
+	/**
+	 * Overriding withdraw method to track number of transaction and transaction fee. 
+	 * @param amount
+	 */
 	@Override
 	public void withdraw (double amt)
 	{
-		if (this.getBalance()<0 || amt<0)
+		if (this.getBalance()<0 || amt<0)//amount and balance should be positive
 		{
 			throw new IllegalArgumentException();
 		}
@@ -62,6 +77,10 @@ public class CheckingAccount extends BankAccount
 	
 	}
 	
+	/**
+	 * Overriding transfer method to validate user name and to track number of transaction and transaction fee. 
+	 * @param other account and amount
+	 */
 	@Override
 	public void transfer(BankAccount other, double amt)
 	{
@@ -93,7 +112,9 @@ public class CheckingAccount extends BankAccount
 		
 	}
 	
-	
+	/**
+	 * Overriding abstract method to reset the number of transaction to zero
+	 */
 	@Override
 	public  void endOfMonthUpdate() 
 	{

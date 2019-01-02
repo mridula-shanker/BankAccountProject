@@ -1,4 +1,9 @@
-
+/**
+ * Mridula Shanker
+ * 9th Grade-Period 6
+ * Bank Account Project
+ *
+ */
 public abstract class BankAccount 
 {
 	public static int nextAccNum;

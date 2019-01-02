@@ -95,7 +95,7 @@ public class MainClass
 					{
 						tempAccNo = inn.nextInt();
 						int arraySize = accounts.size() - 1;
-						if (tempAccNo > arraySize)  // Validate the account number by array size
+						if (tempAccNo > arraySize && tempAccNo < 0)  // Validate the account number by array size
 						{
 							System.out.println("Invalid Account number - out of index");
 							action = false;
@@ -269,7 +269,7 @@ public class MainClass
 			String regex = "^[a-zA-Z ]+$";
 			String name;
 	        do {
-	            System.out.print("Please enter your name:");
+	            System.out.println("Please enter your name:");
 	            name = in.nextLine();
 	            if(!name.matches(regex))
 	            	System.out.println("Please Enter A Valid String (Only alphabets)");

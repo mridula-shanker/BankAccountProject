@@ -95,7 +95,7 @@ public class MainClass
 					{
 						tempAccNo = inn.nextInt();
 						int arraySize = accounts.size() - 1;
-						if (tempAccNo > arraySize && tempAccNo < 0)  // Validate the account number by array size
+						if (tempAccNo > arraySize || tempAccNo < 0)  // Validate the account number by array size
 						{
 							System.out.println("Invalid Account number - out of index");
 							action = false;
@@ -325,7 +325,7 @@ public class MainClass
 			case ("D"):  // To deposit to the account
 				try
 				{
-				System.out.println("Deposit in progress....");
+				System.out.println("Deposit in progress...");
 				accNo = getValidAccount();
 				if (accNo != -1)
 				{
@@ -349,7 +349,7 @@ public class MainClass
 			case("W"):
 				try
 				{
-				System.out.println("Withdraw in progress.....");
+				System.out.println("Withdraw in progress...");
 				accNo = getValidAccount();
 				if (accNo != -1)
 				{
@@ -416,7 +416,7 @@ public class MainClass
 				}
 				break;
 				
-			case("back"):
+			case("B"):
 				System.out.println("Exiting the Transaction option");
 				action = true;
 				break;			
@@ -441,7 +441,7 @@ public class MainClass
 		boolean ans = false;
 		do
 		{
-			System.out.println("Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
+			System.out.println(" Would you like to add an account (account), make a transaction (transaction), or terminate the program? (terminate)");
 			String input = in.nextLine();
 			if(input.equalsIgnoreCase("account"))
 			{

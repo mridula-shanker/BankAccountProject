@@ -19,8 +19,9 @@ public abstract class BankAccount
 	public BankAccount(String n)
 	{
 		name = n;
-		acctNum = nextAccNum++;
+		acctNum = nextAccNum;
 		balance=0;
+		nextAccNum++;
 	}
 	
 	/**

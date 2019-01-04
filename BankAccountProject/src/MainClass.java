@@ -152,7 +152,7 @@ public class MainClass
 		        
 		        ArrayList<Integer> accNumList = new ArrayList <Integer>();
 		        int match = 0;
-	        	System.out.println("Account number and balance which matches the given name: ");
+	        	System.out.println("Account number and balance that matches the given name: ");
 		        for(int i=0; i<accounts.size(); i++)
 		        {
 		        	String tempName = accounts.get(i).getName();
